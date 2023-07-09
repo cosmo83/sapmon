@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Build and deployment scripts",
   "scripts": {
-    "start": "cds-serve",
+    "start": "cds-deploy && cds-serve",
     "clean": "rimraf resources mta_archives mta-op*",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",

@@ -16,6 +16,19 @@ modules:
       srv-url: ${default-url}
   parameters:
     buildpack: nodejs_buildpack
+    host: ${appname}
+  build-parameters:
+    builder: npm
+
+- name: sapmon-deploy
+  type: nodejs
+  path: gen/pg
+  requires:
+  - name: postgres-db
+  parameters:
+    buildpack: nodejs_buildpack
+    no-route: true
+    no-start: true
   build-parameters:
     builder: npm
 
@@ -99,6 +112,14 @@ resources:
             ProxyType: Internet
             Type: HTTP
             URL: https://ui5.sap.com
+          - Authentication: NoAuthentication
+            ForwardAuthToken: true
+            HTML5.DynamicDestination: true
+            HTML5.FowardAuthToken: true
+            Name: sapmon-api
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://${appname}.${default-domain}
           existing_destinations_policy: update
       version: 1.0.0
     service: destination
@@ -111,4 +132,6 @@ resources:
     service-name: sapmon-html5-srv
     service-plan: app-host
 parameters:
+  appname: sapmon-${space}
   deploy_mode: html5-repo
+  enable-parallel-deployments: true

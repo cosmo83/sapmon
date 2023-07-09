@@ -3,9 +3,9 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^/sap-mon/(.*)$",
-      "target": "/sap-mon/$1",
-      "destination": "sapmon_repo_host",
+      "source": "^/odata/v4/sap-mon/(.*)$",
+      "target": "/odata/v4/sap-mon/$1",
+      "destination": "sapmon-api",
       "authenticationType": "xsuaa",
       "csrfProtection": false
     },
