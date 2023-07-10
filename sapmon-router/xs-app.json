@@ -1,0 +1,25 @@
+{
+    "authenticationMethod": "route",
+    "routes": [
+     {
+            "source": "^/cloudalmhosts.json",
+            "target":"/cloudalmhosts.json",
+            "destination":"srv-api",
+            "authenticationType":"none"
+        },
+      {
+          "source": "^/targets/(.*)$",
+          "target":"/targets/$1",
+          "destination":"srv-api",
+          "authenticationType":"none"
+      },
+      {
+        "source": "^/(.*)$",
+        "target": "$1",
+        "destination": "srv-api",
+        "authenticationType": "xsuaa",
+        "csrfProtection": true
+      }
+    ]
+  }
+  

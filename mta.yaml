@@ -16,7 +16,10 @@ modules:
       srv-url: ${default-url}
   parameters:
     buildpack: nodejs_buildpack
+    stack: cflinuxfs4
     host: ${appname}
+    disk-quota: 400M
+    memory: 256M
   build-parameters:
     builder: npm
 
@@ -27,10 +30,28 @@ modules:
   - name: postgres-db
   parameters:
     buildpack: nodejs_buildpack
+    stack: cflinuxfs4
     no-route: true
     no-start: true
+    disk-quota: 400M
+    memory: 256M
   build-parameters:
     builder: npm
+
+- name: prometheus
+  type: application
+  parameters: 
+    docker:   
+      image: cosmo83/prometheus 
+    instances: 1  #optional
+    disk-quota: 1024M
+    memory: 256M
+    routes: 
+    - route: ${promname}.${default-domain}
+  properties:
+    SAPMON_URL: https://${routername}.${default-domain}/cloudalmhosts.json
+  build-parameters:
+    no-source: true  
 
 - name: sapmon-dest-content
   type: com.sap.application.content
@@ -62,6 +83,28 @@ modules:
         existing_destinations_policy: update
   build-parameters:
     no-source: true
+
+- name: sapmon-router
+  type: approuter.nodejs
+  path: sapmon-router/ # from cds.env.folders. Consider also cds.env.build.target -> gen/app
+  parameters:
+    buildpack: nodejs_buildpack
+    stack: cflinuxfs4
+    keep-existing-routes: true
+    disk-quota: 256M
+    memory: 256M
+    host: ${routername}
+  requires:
+    - name: srv-api
+      group: destinations
+      properties:
+        name: srv-api # must be used in xs-app.json as well
+        url: ~{srv-url}
+        forwardAuthToken: true
+    - name: sapmon-destination-service
+    - name: sapmon-uaa
+    
+
 - name: sapmon-app-content
   type: com.sap.application.content
   path: .
@@ -133,5 +176,7 @@ resources:
     service-plan: app-host
 parameters:
   appname: sapmon-${space}
+  promname: prometheus-${space}
+  routername: sapmon-router-${space}
   deploy_mode: html5-repo
   enable-parallel-deployments: true

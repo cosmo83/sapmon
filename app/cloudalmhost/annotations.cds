@@ -4,18 +4,23 @@ annotate service.CloudALMHost with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'hostName',
-            Value : hostName,
+            Label : 'Tag Name',
+            Value : name,
+        },     
+        {
+            $Type : 'UI.DataField',
+            Label : 'Cloud ALM Host Name',
+            Value : host,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'clientid',
+            Label : 'Client ID',
             Value : clientid,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'clientsecret',
-            Value : clientsecret,
+            Label : 'Token URL',
+            Value : tokenendpoint
         },
     ]
 );
@@ -24,9 +29,14 @@ annotate service.CloudALMHost with @(
         $Type : 'UI.FieldGroupType',
         Data : [
             {
+            $Type : 'UI.DataField',
+            Label : 'Tag Name',
+            Value : name,
+            },    
+            {
                 $Type : 'UI.DataField',
-                Label : 'hostName',
-                Value : hostName,
+                Label : 'Cloud ALM Host',
+                Value : host,
             },
             {
                 $Type : 'UI.DataField',
@@ -37,6 +47,11 @@ annotate service.CloudALMHost with @(
                 $Type : 'UI.DataField',
                 Label : 'clientsecret',
                 Value : clientsecret,
+            },
+            {
+            $Type : 'UI.DataField',
+            Label : 'Token URL',
+            Value : tokenendpoint
             },
         ],
     },

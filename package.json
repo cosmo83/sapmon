@@ -14,6 +14,7 @@
     "@cap-js/postgres": "^1.0.1",
     "@sap/cds": "^7",
     "@sap/xssec": "^3",
+    "cfenv": "^1.2.4",
     "express": "^4",
     "passport": "^0",
     "sqlite3": "^5.1.6"
@@ -26,5 +27,13 @@
   },
   "sapux": [
     "app/cloudalmhost"
-  ]
+  ],
+  "cds": {
+    "requires": {
+      "Destination.Service._Cloud.Foundry_": {
+        "kind": "odata",
+        "model": "srv/external/SAP_CP_CF_Connectivity_Destination"
+      }
+    }
+  }
 }
