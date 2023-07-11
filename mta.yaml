@@ -53,6 +53,25 @@ modules:
   build-parameters:
     no-source: true  
 
+- name: grafana
+  type: application
+  parameters: 
+    docker:   
+      image: cosmo83/grafana
+    instances: 1  #optional
+    disk-quota: 512M
+    memory: 256M
+    routes: 
+    - route: ${grafana}.${default-domain}
+  properties:
+    GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER}
+    GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD}
+    GF_USERS_ALLOW_SIGN_UP: false
+    PROM_URL: https://${promname}.${default-domain}
+  build-parameters:
+    no-source: true  
+
+
 - name: sapmon-dest-content
   type: com.sap.application.content
   requires:
@@ -178,5 +197,8 @@ parameters:
   appname: sapmon-${space}
   promname: prometheus-${space}
   routername: sapmon-router-${space}
+  grafana: grafana-${space}
+  GRAFANA_ADMIN_USER: admin
+  GRAFANA_ADMIN_PASSWORD: P@ssw0rd1
   deploy_mode: html5-repo
   enable-parallel-deployments: true

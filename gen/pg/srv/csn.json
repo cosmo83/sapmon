@@ -60,13 +60,19 @@
           "key": true,
           "type": "cds.UUID"
         },
-        "hostName": {
+        "name": {
+          "type": "cds.String"
+        },
+        "host": {
           "type": "cds.String"
         },
         "clientid": {
           "type": "cds.String"
         },
         "clientsecret": {
+          "type": "cds.String"
+        },
+        "tokenendpoint": {
           "type": "cds.String"
         }
       }
@@ -81,23 +87,30 @@
       "@UI.LineItem": [
         {
           "$Type": "UI.DataField",
-          "Label": "hostName",
+          "Label": "Tag Name",
           "Value": {
-            "=": "hostName"
+            "=": "name"
           }
         },
         {
           "$Type": "UI.DataField",
-          "Label": "clientid",
+          "Label": "Cloud ALM Host Name",
+          "Value": {
+            "=": "host"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "Client ID",
           "Value": {
             "=": "clientid"
           }
         },
         {
           "$Type": "UI.DataField",
-          "Label": "clientsecret",
+          "Label": "Token URL",
           "Value": {
-            "=": "clientsecret"
+            "=": "tokenendpoint"
           }
         }
       ],
@@ -105,9 +118,16 @@
       "@UI.FieldGroup#GeneratedGroup1.Data": [
         {
           "$Type": "UI.DataField",
-          "Label": "hostName",
+          "Label": "Tag Name",
           "Value": {
-            "=": "hostName"
+            "=": "name"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "Cloud ALM Host",
+          "Value": {
+            "=": "host"
           }
         },
         {
@@ -122,6 +142,13 @@
           "Label": "clientsecret",
           "Value": {
             "=": "clientsecret"
+          }
+        },
+        {
+          "$Type": "UI.DataField",
+          "Label": "Token URL",
+          "Value": {
+            "=": "tokenendpoint"
           }
         }
       ],
@@ -193,13 +220,19 @@
           "key": true,
           "type": "cds.UUID"
         },
-        "hostName": {
+        "name": {
+          "type": "cds.String"
+        },
+        "host": {
           "type": "cds.String"
         },
         "clientid": {
           "type": "cds.String"
         },
         "clientsecret": {
+          "type": "cds.String"
+        },
+        "tokenendpoint": {
           "type": "cds.String"
         }
       }

@@ -1,8 +1,32 @@
 {
-    "dependencies": {
-      "@sap/cds": "7"
-    },
-    "scripts": {
-      "start": "cds-deploy"
-    }
-  }
+  "name": "mta-project",
+  "version": "0.0.1",
+  "description": "Build and deployment scripts",
+  "scripts": {
+    "start": "cds-deploy",
+    "clean": "rimraf resources mta_archives mta-op*",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "undeploy": "cf undeploy sapmon --delete-services --delete-service-keys --delete-service-brokers",
+    "watch-cloudalmhost": "cds watch --open cloudalmhost/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "dependencies": {
+    "@cap-js/postgres": "^1.0.1",
+    "@sap/cds": "^7",
+    "@sap/xssec": "^3",
+    "cfenv": "^1.2.4",
+    "express": "^4",
+    "passport": "^0",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^7",
+    "@sap/ux-specification": "^1.108.8",
+    "mbt": "^1.2.18",
+    "rimraf": "^3.0.2"
+  },
+  "sapux": [
+    "app/cloudalmhost"
+  ]
+ 
+}
