@@ -1,2 +1,0 @@
-name,host,clientid,clientsecret,tokenendpoint
-"chembond","https://chembond-cloudalm.eu10.alm.cloud.sap","sb-chembond-cloudalm!b240414|sapcloudalm!b16907","b2154821-1f6e-4192-9fd4-56ec047de9e4$PreYUAYPW2oR31GdkN5Ry7CMCmzneGisyPVSkLemIPA=","https://chembond-cloudalm.authentication.eu10.hana.ondemand.com/oauth/token"
