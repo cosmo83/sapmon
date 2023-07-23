@@ -8,11 +8,15 @@
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
     "undeploy": "cf undeploy sapmon --delete-services --delete-service-keys --delete-service-brokers",
-    "watch-cloudalmhost": "cds watch --open cloudalmhost/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-cloudalmhost": "cds watch --open cloudalmhost/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-almdash1": "cds watch --open almdash1/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "dependencies": {
     "@cap-js/postgres": "^1.0.1",
+    "@sap-cloud-sdk/http-client": "^3.3.0",
+    "@sap-cloud-sdk/resilience": "^3.3.0",
     "@sap/cds": "^7",
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
     "@sap/xssec": "^3",
     "cfenv": "^1.2.4",
     "express": "^4",
@@ -21,18 +25,32 @@
   },
   "devDependencies": {
     "@sap/cds-dk": "^7",
-    "@sap/ux-specification": "^1.108.8",
+    "@sap/ux-specification": "^1.108.10",
     "mbt": "^1.2.18",
     "rimraf": "^3.0.2"
   },
   "sapux": [
-    "app/cloudalmhost"
+    "app/cloudalmhost",
+    "app/almdash1"
   ],
   "cds": {
     "requires": {
       "Destination.Service._Cloud.Foundry_": {
         "kind": "odata",
         "model": "srv/external/SAP_CP_CF_Connectivity_Destination"
+      },
+      "PROMAPI": {
+        "kind": "rest",
+        "[production]": {
+          "credentials": {
+            "destination": "PROMAPI"
+          }
+        },
+        "[development]": {
+          "credentials": {
+            "url": "https://prometheus-hackathon.cfapps.us10.hana.ondemand.com/"
+          }
+        }
       }
     }
   }
